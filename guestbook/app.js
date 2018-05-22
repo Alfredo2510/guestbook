@@ -4,7 +4,7 @@ var express= require('express');
 var logger = require ('morgan');
 var bodyParser =require('body-parser');
 
-var alfredo;
+
 
 var app= express();
 app.set('views',path.resolve(__dirname, 'views'));
