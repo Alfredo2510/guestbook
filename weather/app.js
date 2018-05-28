@@ -1,6 +1,7 @@
 var path = require("path");
 var express = require("express");
-var zipdb = require("forecastio");
+var zipdb = require("zippity-do-dah");
+var Forecastio = require("forecastio");
 
 var app = express();
 
@@ -17,21 +18,21 @@ app.get("/",function(req,res){
 app.get(/^\/(\d{5})$/, function(req,res,next){
     var zipcode = req.params[0];
     var location = zipdb.zipcode(zipcode);
-    if(!location,zip){
+    if(!location.zipcode){
         next();
         return;
     }
     var latitude = location.latitude;
     var longitude = location.longitude;
 
-    weather.forecast(latitude,longitude,function(en,data){
-        if(en){
+    weather.forecast(latitude,longitude,function(err,data){
+        if(err){
             next();
             return;
         }
         res.json({
             zipcode: zipcode,
-            temperature: data.currently,temperature
+            temperature: data.currently.temperature
         });
     });
 } );
