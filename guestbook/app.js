@@ -6,7 +6,7 @@ var bodyParser =require('body-parser');
 
 
 
-var app= express();
+{var app= express();
 app.set('views',path.resolve(__dirname, 'views'));
 app.set('view engine','ejs');
 var entries=[];
