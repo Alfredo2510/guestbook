@@ -17,9 +17,9 @@ app.use(bodyParser.urlencoded({extended: false}));//analiza el texto como datos 
 
 app.get("/", (request,response)=> response.render('index'));// al iniciar localhost:3000 se inicia en 'index'
 
-var IP_VALIDAS = ['192.168.10.8','192.168.10.3','::1','192.168.10.5','333']; //IPs que son válidas para acceder a la sección Víctimas 
+var IP_VALIDAS = ['192.168.10.8','192.168.10.3','::1','192.168.10.5']; //IPs que son válidas para acceder a la sección Víctimas 
 var IP_ESTADOL=false;
-var IP_ACTUALL="33366";
+var IP_ACTUALL="192.168.10.4"; //ip actual, en este caso, esta IP no pertenece a IP_VALIDAS, es por eso que arrojará una excepción al acceder a la sección de víctimas
 app.get("/victimas",(request,response)=>{ //se mande llamar la sección víctimas
     for(var i=0; i<IP_VALIDAS.length; i++){//condición for para recorrer el arreglo de Ip's 
         if(IP_ACTUALL==IP_VALIDAS[i]){ //condición para saber si IP_ACTUAL es igual a las IPs del arreglo
