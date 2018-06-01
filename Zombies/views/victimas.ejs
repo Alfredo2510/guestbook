@@ -1,0 +1,50 @@
+<% include header %>
+
+<h2 class="text-center">Ingresar Víctimas Potenciales</h2>
+<form method="post" role="form">
+    <div class="form-group">
+        <label for="title">nombre</label> 
+        <input type="text" class="form-control" id="name" name="name" placeholder="Escribe un nombre" required/>
+    </div>
+    <div class="form-group">
+        <label for="address">dirección</label> 
+       <input type="text" class="form-control" id="address" name="address" placeholder="Escribe una dirección" required/>
+    </div>
+    <div class="form-group">
+            <label for="phone">teléfono</label> 
+           <input type="number" class="form-control" id="phone" name="phone" placeholder="Escribe un teléfono" required/>
+     </div>
+     <div class="form-group">
+            <label for="instagram">instagram</label> 
+           <input type="text" class="form-control" id="address" name="instagram" placeholder="Escribe cuenta de instagram" required/>
+    </div>
+
+<div class="form-group">
+<input type="submit" class="btn btn-warning" value="Aceptar">
+</div>
+
+</form>
+
+<% if(entries.length){ %>
+    <% entries.forEach((entry)=> { %>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="text-muted  pull-right">
+<h6>Registros de las Víctimas</h6>
+                        
+                </div>
+               <h4>Nombre: <%= entry.name%></h4> 
+                <h4>Dirección: <%= entry.address%></h4>
+                <h4>Teléfono: <%= entry.phone%></h4>
+                <h4>Instagram: <%= entry.instagram%></h4>
+            </div>
+
+        </div>
+    <% }) %>
+    
+<% } else{ %>
+<p>Ingrese los datos de las posibles víctimas</p>
+<%}%>
+
+
+<% include footer %>

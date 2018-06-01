@@ -11,8 +11,8 @@ $(function(){
         });
         request.done(function(data){
             var temperature = data.temperature;
-            $h1.html("la temperatura es"
-        + temperature + "&#176; en" + zipCode + ".");
+            $h1.html("la temperatura es "
+        + temperature + "&#176; en " + zipCode + ".");
         });
         request.fail(function(){
             $h1.text("Error");

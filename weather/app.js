@@ -10,11 +10,13 @@ var weather = new Forecastio("533da4dd38341d8a17ff25274edfbbeb");
 
 app.use(express.static(path.resolve(__dirname,"public")));
 app.set("views",path.resolve(__dirname,"views"));
-app.set("view engine","ejs");
+app.set("view engine","ejs");//sepa
 app.get("/",function(req,res){
     res.render("index");
 });
 
+
+//clima
 app.get(/^\/(\d{5})$/, function(req,res,next){
     var zipcode = req.params[0];
     var location = zipdb.zipcode(zipcode);
@@ -35,7 +37,7 @@ app.get(/^\/(\d{5})$/, function(req,res,next){
             temperature: data.currently.temperature
         });
     });
-} );
+} ); //clima
 app.use(function(req,res){
     res.status(404).render("404");
 });

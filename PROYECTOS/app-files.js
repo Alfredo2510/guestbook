@@ -5,7 +5,7 @@ var http= require('http');
 var app=express();
 
 var publicPath = path.join(__dirname,'public');
-app.use('/peppaa',express.static(publicPath));
+app.use('/peppa',express.static(publicPath));
 
 app.use((request,response)=>{
     response.writeHead(200,{'Content-Type':'text/plain'});
