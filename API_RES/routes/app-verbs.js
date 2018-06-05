@@ -1,19 +1,20 @@
-var api = express.Router();
+var express = require("express");
+var app = express.Router();
 
 app.get("/",(req,res)=>{
-    res.send("Utilizaste el verbo GET");
+    res.status(500).send("Utilizaste el verbo GET");
 });
 
 app.post("/",(req,res)=>{
-    res.send("Utilizaste el verbo POST");
+    res.status(300).send("Utilizaste el verbo POST");
 });
 
 app.put("/",(req,res)=>{
-    res.send("Utilizaste el verbo PUT");
+    res.status(400).send("Utilizaste el verbo PUT");
 });
 
 app.delete("/",(req,res)=>{
-    res.send("Utilizaste el verbo DELETE");
+    res.status(200).send("Utilizaste el verbo DELETE");
 });
 
-module.exports=api;
+module.exports=app;
