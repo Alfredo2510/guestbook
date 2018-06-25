@@ -1,0 +1,24 @@
+<% include _header %>
+<a href="/equip" class="btn btn-primary btn-block">Registrar equipo </a>
+<% equipo.forEach((e) => {%>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <%if (e.category) {%>   
+            <h2>Categoria: <%= e.category%></h2>
+            <% } else {%>
+            <h2>Sin Categoria</h2>
+            <% } %>
+        </div>
+
+        <div class="panel-body">
+            <h3>Descripcion: <%= e.description %> </h3>
+            <h3> Defensa: <%= e.defense %></h3>
+            <%if (e.weight){%>
+            <h3>Peso: <%= e.weight %></h3>
+            <%}%>
+     
+        </div>
+    </div>
+
+<% }) %>
+<% include _footer %>
