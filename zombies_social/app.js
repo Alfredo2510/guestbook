@@ -6,11 +6,16 @@ var bodyParser= require("body-parser");
 var cookieParser= require("cookie-parser");
 var flash= require("connect-flash");
 var session=require("express-session");
+var passport = require("passport");
 
 var routes= require("./routes");
 var app= express();
+var passportsetup = require("./passportsetup");
 
 mongoose.connect("mongodb://localhost:27017/zombie_nest");
+
+passportsetup();
+
 app.set("port",process.env.PORT||3000);
 //direccion donde estan las rutas
 app.set("views",path.resolve(__dirname,"views"));
@@ -25,6 +30,12 @@ app.use(session({
 
 }));
 app.use(flash());
+
+app.use(passport.initialize({
+    userProperty:"zombie"
+}));
+app.use(passport.session());
+
 app.use(routes);
 app.listen(app.get("port"),()=>{
     console.log("la aplicacion inicio por el puerto"+app.get("port"));

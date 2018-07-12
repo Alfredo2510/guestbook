@@ -1,23 +1,58 @@
 var express= require("express");
 var Zombie= require("./models/zombie");
 var Equipment = require("./models/equipment");
-
 var passport=require("passport");
+var acl = require('express-acl');
+
 var router= express.Router();
 
 router.use((req,res,next)=>{
-    res.locals.currentZombie=req.Zombie;
+    res.locals.currentZombie=req.zombie;
     res.locals.errors=req.flash("error");
     res.locals.infos=req.flash("info");
-    next();
+
+  if(req.zombie){
+    req.session.typeUser = req.zombie.typeUser;
+    }
+
+    if (req.session.typeUser == undefined){
+        acl.config({
+            baseUrl:'/',
+            defaultRole:'Invitado',
+        });
+    }else{
+            acl.config({
+                baseUrl:'/',
+                defaultRole:req.session.typeUser
+        });
+        }
+        next();
 });
 
+router.use(acl.authorize);
 
-router.get("/signup", (req, res, next)=>{
+router.get("/login", (req, res)=>{
+    res.render("login");
+});
+
+router.post("/login", passport.authenticate("login", {
+    successRedirect:"/",
+    failureRedirect: "/login",
+    failureFlash: true
+}));
+
+router.get("/logout", (req, res) =>{
+    req.logout();
+    res.redirect("/");
+});
+
+//router.get("/signup", (req, res, next)=>{
+router.get("/signup", (req, res)=>{
     res.render("signup");
 });
 
 router.post("/signup", (req, res, next)=>{
+    var typeUser = req.body.typeUser;
     var username = req.body.username;
     var password = req.body.password;
 
@@ -30,13 +65,14 @@ router.post("/signup", (req, res, next)=>{
             return res.redirect("/signup");
         }
             var newZombie = new Zombie({
+                typeUser: typeUser,
                 username: username,
                 password: password
             });
             newZombie.save(next);
             return res.redirect("/");
     });
-;})
+});
 
 router.get("/",(req,res,next)=>{
     Zombie.find()
@@ -55,7 +91,7 @@ router.get("/zombies/:username", (req, res, next)=>{
             return next(err);
         }
         if(!zombie){
-            return next(400);
+            return next(404);
         }
         res.render("profile", {zombie: zombie});
     });
@@ -95,6 +131,33 @@ router.get("/Equipment", (req, res, next)=>{
     });
 
 });
+
+router.get("/edit", ensureAuthenticated, (req, res) => {
+    res.render("edit");
+})
+
+router.post("/edit", ensureAuthenticated, (req, res, next) => {
+    req.zombie.displayName = req.body.displayName;
+    req.zombie.bio = req.body.bio;
+    req.zombie.save((err) => {
+        if(err) {
+            next(err);
+            return;
+        }
+        req.flash("info", "Perfil actualizado!");
+        res.redirect("/edit");
+    });
+});
+
+function ensureAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        next();
+    }else {
+        req.flash("info", "Necesitas iniciar sesion para poder ver esta seccion");
+        res.redirect("/login")
+    }
+}
+
 
 module.exports=router;
 

@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/Zombies\\app.js"
+            "program": "${workspaceFolder}/zombies_social\\app.js"
         }
     ]
 }

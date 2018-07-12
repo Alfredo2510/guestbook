@@ -1,20 +1,23 @@
 <% include _header %>
-<a href="/equip" class="btn btn-primary btn-block">Registrar equipo </a>
+<a href="/equip" class="btn btn-primary pull-right">Registrar equipo </a>
+<br>
+<br>
+<br>
 <% equipo.forEach((e) => {%>
     <div class="panel panel-default">
         <div class="panel-heading">
             <%if (e.category) {%>   
-            <h2>Categoria: <%= e.category%></h2>
+            <h3>Categoria: <%= e.category%></h3>
             <% } else {%>
-            <h2>Sin Categoria</h2>
+            <h3>Sin Categoria</h3>
             <% } %>
         </div>
 
         <div class="panel-body">
-            <h3>Descripcion: <%= e.description %> </h3>
-            <h3> Defensa: <%= e.defense %></h3>
+            <h4>Descripcion: <%= e.description %> </h4>
+            <h4> Defensa: <%= e.defense %></h4>
             <%if (e.weight){%>
-            <h3>Peso: <%= e.weight %></h3>
+            <h4>Peso: <%= e.weight %></h4>
             <%}%>
      
         </div>
